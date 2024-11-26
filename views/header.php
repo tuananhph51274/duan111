@@ -129,7 +129,7 @@
                     }?>
                     <li><a href="index.php?act=donhangcuatoi">Danh sách đơn hàng</a></li>
                     <li><a href="index.php?act=update_account">Cập nhật tài khoản</a></li>
-                    <li><a href="index.php?act=forgot_password">Quên mật khẩu</a></li>
+                  
                     <li><a href="index.php?act=dangxuat">Đăng xuất</a></li>
                 </ul>
             </li>

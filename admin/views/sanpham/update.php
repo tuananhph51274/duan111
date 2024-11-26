@@ -15,6 +15,8 @@
                 } else {
                     $hinh = "no photo";
                 }
+                // var_dump($listdanhmuc);
+                // die();
                 ?>
                 <div class="row">
                     <div class="row formtitle">
@@ -25,11 +27,13 @@
                             <input type="hidden" name="anh_san_pham_cu" value="<?php echo $sanpham['anh_san_pham']; ?>">
                             <div class="row mb10">
                             <label for="exampleFormControlInput1" class="form-label">Danh Mục</label>
-                                <select name="iddm" class="form-select">
+                                <select name="ma_danh_muc" class="form-select">
                                     <option value="0" selected>Tất cả</option>
                                     <?php
+                                   
                                     foreach ($listdanhmuc as $danhmuc) {
-                                        
+                                        // var_dump($danhmuc['ma_danh_muc']);
+                                        //die();
                                         if ($ma_danh_muc == $danhmuc['ma_danh_muc']) $s ="selected";
                                         else $s = "";
                                         echo '<option value="' . $danhmuc['ma_danh_muc']. '" ' . $s . '>' . $danhmuc['ten_danh_muc'] . '</option>';

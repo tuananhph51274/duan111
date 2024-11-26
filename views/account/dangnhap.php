@@ -43,7 +43,7 @@ if (isset($thongbao)) {
                                     </div>
                                     <div class="single-input-item">
                                         <div class="login-reg-form-meta d-flex align-items-center ">
-                                            <a href="#" class=" p-2">Quên Mật Khẩu ?</a>
+                                          
                                             <a href="index.php?act=dangky" class="">Chưa có tài khoản ?</a>
                                         </div>
                                        

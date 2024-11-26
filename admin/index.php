@@ -147,7 +147,8 @@ if (isset($_GET['act'])) {
                 $mau_sac = isset($_POST['mau_sac']) ? $_POST['mau_sac'] : [];
                 $so_luong = $_POST['so_luong'];
                 $hinh = $_FILES['anh_san_pham']['name'];
-            
+                $ma_danh_muc=$_POST['ma_danh_muc'];
+                
                 // Xử lý upload hình ảnh
                 if (!empty($hinh)) {
                     $target_dir = "../uploads/";
@@ -163,7 +164,7 @@ if (isset($_GET['act'])) {
                 }
             
                 // Cập nhật sản phẩm vào cơ sở dữ liệu
-                update_sanpham($ma_san_pham, $ten_san_pham, $hinh, $gia, $mo_ta, $so_luong, $mau_sac);
+                update_sanpham($ma_san_pham, $ten_san_pham, $hinh, $gia, $mo_ta, $so_luong, $mau_sac,$ma_danh_muc);
             
                 $thongbao = "Cập nhật thành công";
             }

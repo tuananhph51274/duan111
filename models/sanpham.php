@@ -94,21 +94,23 @@ function loadone_mausac($ma_san_pham)
 //     $listsanpham = pdo_query($sql);
 //     return $listsanpham;
 // }
-function update_sanpham($ma_san_pham, $ten_san_pham, $hinh, $gia, $mo_ta, $so_luong, $mau_sac)
+function update_sanpham($ma_san_pham, $ten_san_pham, $hinh, $gia, $mo_ta, $so_luong, $mau_sac,$ma_danh_muc)
 {
     // Nếu không có hình mới, bỏ qua trường anh_san_pham
     if (empty($hinh)) {
         $sql = "UPDATE sanpham 
                 SET ten_san_pham = '$ten_san_pham', 
                     gia = '$gia', 
-                    mo_ta = '$mo_ta'
+                    mo_ta = '$mo_ta',
+                    ma_danh_muc = '$ma_danh_muc'
                 WHERE ma_san_pham = '$ma_san_pham'";
     } else {
         $sql = "UPDATE sanpham 
                 SET ten_san_pham = '$ten_san_pham', 
                     anh_san_pham = '$hinh', 
                     gia = '$gia', 
-                    mo_ta = '$mo_ta'
+                    mo_ta = '$mo_ta',
+                    ma_danh_muc = '$ma_danh_muc'
                 WHERE ma_san_pham = '$ma_san_pham'";
     }
     pdo_execute($sql);
