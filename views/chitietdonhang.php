@@ -13,6 +13,7 @@
                                 <th>Màu sắc</th>
                                 <th>Giá</th>
                                 <th>Thành tiền</th>
+                                <th>Link sản phẩm</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -23,6 +24,7 @@
                                     <td><?= $item['mau_sac'] ?></td>
                                     <td><?= number_format($item['gia'], 0, ',', '.') ?> VNĐ</td>
                                     <td><?= number_format($item['thanh_tien'], 0, ',', '.') ?> VNĐ</td>
+                                  <td>  <a class="btn btn-sqr" href="index.php?act=chitietsanpham&ma_san_pham=<?= $item['ma_san_pham'] ?>">Xem sản phẩm</a> </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

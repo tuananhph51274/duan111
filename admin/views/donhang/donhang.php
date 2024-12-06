@@ -37,7 +37,6 @@
                 </td>
                 <td>
                     <a class="btn btn-primary" href="index.php?act=admin_donhang_detail&id=<?= $donhang['ma_don_hang'] ?>">Xem chi tiết</a> 
-                    <a class="btn btn-warning" href="index.php?act=admin_donhang_update&id=<?= $donhang['ma_don_hang'] ?>">Sửa trạng thái</a>
                 </td>
             </tr>
         <?php endforeach; ?>
