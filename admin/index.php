@@ -48,13 +48,24 @@ if (isset($_GET['act'])) {
             }
             include "views/danhmuc/add.php";
             break;
-        case 'xoadm':
-            if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-                delete_danhmuc($_GET['id']);
-            }
-            $listdanhmuc = loadall_danhmuc();
-            include "views/danhmuc/list.php";
-            break;
+            case 'xoadm':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    $danhmuc_id = $_GET['id'];
+            
+                    // Kiểm tra danh mục có đang được sử dụng
+                    if (is_danhmuc_in_use($danhmuc_id)) {
+                        echo "<script>alert('Danh mục này chứa sản phẩm đang được sử dụng trong giỏ hàng hoặc đơn hàng, không thể xóa!');</script>";
+                    } else {
+                        delete_danhmuc($danhmuc_id);    
+                    }
+                    // Chuyển hướng để tránh lỗi refresh
+                    echo "<script>window.location.href='index.php?act=lisdm';</script>";
+                }
+            
+                $listdanhmuc = loadall_danhmuc();
+                include "views/danhmuc/list.php";
+                break;
+            
         case 'suadm':
             if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                 $dm = loadone_danhmuc($_GET['id']);
@@ -111,14 +122,24 @@ if (isset($_GET['act'])) {
             $listdanhmuc = loadall_danhmuc();
             include "views/sanpham/add.php";
             break;
-        case 'xoasp':
-            if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-                delete_sanpham($_GET['id']);
-            }
-            $listdanhmuc = loadall_danhmuc();
-            $listsanpham = loadall_sanpham();
-            include "views/sanpham/list.php";
-            break;
+       case 'xoasp':
+    if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+        $sanpham_id = $_GET['id'];
+
+        // Kiểm tra sản phẩm có đang được sử dụng
+        if (is_sanpham_in_use($sanpham_id)) {
+            echo "<script>alert('Sản phẩm đang được sử dụng trong giỏ hàng hoặc đơn hàng, không thể xóa!');</script>";
+        } else {
+            delete_sanpham($sanpham_id);
+           
+        }
+    }
+
+    $listdanhmuc = loadall_danhmuc();
+    $listsanpham = loadall_sanpham();
+    include "views/sanpham/list.php";
+    break;
+
         case 'suasp':
             if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                 $sanpham = loadone_sanpham($_GET['id']);

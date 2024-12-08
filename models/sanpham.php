@@ -38,8 +38,19 @@ function insert_bienthe($ma_san_pham, $mau_sac, $so_luong)
 }
 function delete_sanpham($ma_san_pham)
 {
-    $sql = "delete from sanpham where ma_san_pham=" . $ma_san_pham;
+    if (is_sanpham_in_use($ma_san_pham)) {
+        return false;  // Nếu sản phẩm đang được sử dụng, không xóa được
+    }
+
+    // Xóa các bản ghi trong chitietdonhang liên quan đến sản phẩm
+    $sql = "DELETE FROM chitietdonhang WHERE ma_san_pham = $ma_san_pham";
     pdo_execute($sql);
+
+    // Sau đó, xóa sản phẩm khỏi bảng sanpham
+    $sql = "DELETE FROM sanpham WHERE ma_san_pham = $ma_san_pham";
+    pdo_execute($sql);
+
+    return true;  // Xóa thành công
 }
 function loadall_sanpham_top10()
 {
@@ -347,3 +358,37 @@ function load_product_cungloai($ma_danh_muc,$current_product_id)
     $oneproduct = pdo_query($sql);
     return $oneproduct;
 }
+function is_sanpham_in_cart($sanpham_id) {
+    if (isset($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $item) {
+            if ($item['id_san_pham'] == $sanpham_id) {
+                return true; // Sản phẩm tồn tại trong giỏ hàng
+            }
+        }
+    }
+    return false; // Không tìm thấy sản phẩm
+}
+function is_sanpham_in_use($sanpham_id) {
+    // Kiểm tra trong giỏ hàng
+    if (is_sanpham_in_cart($sanpham_id)) {
+        return true;
+    }
+
+    // Kiểm tra trong đơn hàng (dữ liệu từ cơ sở dữ liệu)
+    $sql_order = "SELECT COUNT(*) 
+                  FROM chitietdonhang 
+                  JOIN donhang ON chitietdonhang.ma_don_hang = donhang.ma_don_hang
+                  WHERE chitietdonhang.ma_san_pham = $sanpham_id 
+                  AND donhang.trang_thai != 'Hủy'"; // Kiểm tra trạng thái đơn hàng khác "Hủy"
+
+    // Thực thi câu truy vấn với tham số $sanpham_id
+    $stmt_order = pdo_query_one($sql_order);
+
+    // Nếu có sản phẩm trong đơn hàng chưa bị hủy
+    if ($stmt_order['COUNT(*)'] > 0) {
+        return true;
+    }
+
+    return false; // Sản phẩm không có trong giỏ hàng và không có trong đơn hàng chưa bị hủy
+}
+
