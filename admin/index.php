@@ -84,18 +84,20 @@ if (isset($_GET['act'])) {
             include "views/danhmuc/list.php";
             break;
             // san pham
-        case 'listsp':
-            if (isset($_POST['listok']) && ($_POST['listok'])) {
-                $kyw = $_POST['kyw'];
-                $iddm = $_POST['iddm'];
-            } else {
-                $kyw = '';
-                $iddm = 0;
-            }
-            $listdanhmuc = loadall_danhmuc();
-            $listsanpham = loadall_sanpham();
-            include "views/sanpham/list.php";
-            break;
+            case 'listsp':
+                if (isset($_POST['listok']) && ($_POST['listok'])) {
+                    $kyw = $_POST['kyw']; // Từ khóa tìm kiếm
+                    $iddm = $_POST['iddm']; // Mã danh mục
+                    $sort_price = $_POST['sort_price']; // Lọc theo giá
+                } else {
+                    $kyw = '';
+                    $iddm = 0; // Mặc định không có lọc danh mục
+                    $sort_price = 'asc'; // Mặc định sắp xếp theo giá từ thấp đến cao
+                }
+                $listdanhmuc = loadall_danhmuc(); // Lấy danh sách danh mục
+                $listsanpham = loadall_sanphamloc($kyw, $iddm, $sort_price); // Lọc sản phẩm theo từ khóa, danh mục, và cách sắp xếp giá
+                include "views/sanpham/list.php"; // Hiển thị danh sách sản phẩm
+                break;
         case 'addsp':
             if (isset($_POST['themmoi']) && ($_POST['themmoi'])) {
                 $iddm = isset($_POST['ma_danh_muc']) ? $_POST['ma_danh_muc'] : 0;

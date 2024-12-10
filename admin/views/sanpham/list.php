@@ -6,6 +6,30 @@
                 <div class="row">
     <div class="row formtitle mb">
         <h1>DANH SÁCH SẢN PHẨM HÀNG</h1>
+        <form action="index.php?act=listsp" method="POST">
+    <input type="text" name="kyw" placeholder="Tìm kiếm sản phẩm" value="<?php echo isset($kyw) ? $kyw : ''; ?>" class="form-control mb-3">
+    
+    <!-- Lọc theo danh mục -->
+    <select name="iddm" class="form-select mb-3">
+        <option value="0">Chọn danh mục</option>
+        <?php
+        foreach ($listdanhmuc as $danhmuc) {
+            echo '<option value="' . $danhmuc['ma_danh_muc'] . '"';
+            if ($iddm == $danhmuc['ma_danh_muc']) echo ' selected';
+            echo '>' . $danhmuc['ten_danh_muc'] . '</option>';
+        }
+        ?>
+    </select>
+
+    <!-- Lọc theo giá -->
+    <select name="sort_price" class="form-select mb-3">
+        <option value="asc" <?php echo isset($sort_price) && $sort_price == 'asc' ? 'selected' : ''; ?>>Giá từ thấp đến cao</option>
+        <option value="desc" <?php echo isset($sort_price) && $sort_price == 'desc' ? 'selected' : ''; ?>>Giá từ cao đến thấp</option>
+    </select>
+    
+    <!-- Nút tìm kiếm -->
+    <input type="submit" name="listok" value="Tìm kiếm" class="btn btn-primary">
+</form>
     </div>
     <!-- <form action="index.php?act=listsp" method="post">
                 <input type="text" name="kyw">

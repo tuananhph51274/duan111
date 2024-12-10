@@ -391,4 +391,24 @@ function is_sanpham_in_use($sanpham_id) {
 
     return false; // Sản phẩm không có trong giỏ hàng và không có trong đơn hàng chưa bị hủy
 }
+function loadall_sanphamloc($kyw = "", $ma_danh_muc = 0, $sort_price = "asc")
+{
+    $sql = "SELECT * FROM sanpham WHERE 1"; // Mặc định lấy tất cả sản phẩm
+    if ($kyw != "") {
+        $sql .= " AND ten_san_pham LIKE '%" . $kyw . "%'"; // Lọc theo từ khóa
+    }
+    if ($ma_danh_muc > 0) {
+        $sql .= " AND ma_danh_muc ='" . $ma_danh_muc . "'"; // Lọc theo mã danh mục
+    }
+
+    // Thêm phần sắp xếp theo giá
+    if ($sort_price == 'asc') {
+        $sql .= " ORDER BY gia ASC"; // Sắp xếp từ thấp đến cao
+    } else {
+        $sql .= " ORDER BY gia DESC"; // Sắp xếp từ cao đến thấp
+    }
+
+    $listsanpham = pdo_query($sql); // Thực thi câu truy vấn
+    return $listsanpham; // Trả về danh sách sản phẩm đã lọc
+}
 
