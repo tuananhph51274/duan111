@@ -227,7 +227,7 @@ if (isset($_GET['act'])) {
                 $id = $_GET['id'];
                 
                 $listcomments = loadone_binhluan($id) ;
-                var_dump($listcomments);
+                //var_dump($listcomments);
                 include "views/binhluan/detail.php";
                 break;
                 case 'dangxuat';
@@ -262,7 +262,19 @@ if (isset($_GET['act'])) {
                     $_SESSION['thongbao'] = "Sửa trạng thái thành công!";
                     header('Location: index.php?act=admin_donhang');
                     break;
-               
+                    case 'xoa_binhluan':
+                        if (isset($_GET['id'])) {
+                            $id = $_GET['id'];  // Lấy ID bình luận từ URL
+                           
+                            // Gọi hàm delete_binhluan() từ model để xóa bình luận
+                            delete_binhluan($id);
+                            $ma_san_pham = $_GET['ma_san_pham'];
+                            // Chuyển hướng lại trang chi tiết bình luận (hoặc trang danh sách)
+                          
+                        }
+                        $listcomments = loadone_binhluan($ma_san_pham) ;
+                        include 'views/binhluan/detail.php';
+                        break;
                    
                   
                     

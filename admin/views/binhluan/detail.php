@@ -5,7 +5,6 @@
             <?php
 // Kiểm tra xem có bình luận nào không
 if ($listcomments) {
-    // var_dump($listcomments);
     // Lấy tên sản phẩm từ phần tử đầu tiên trong mảng bình luận
     $ten_san_pham = $listcomments[0]['ten_san_pham'];
 ?>
@@ -31,7 +30,7 @@ if ($listcomments) {
             // Duyệt qua tất cả các bình luận
             foreach ($listcomments as $index => $comment) {
                 echo '<tr>';
-                echo '<td>' . $index. '</td>'; // Mã bình luận
+                echo '<td>' . ($index + 1) . '</td>'; // Số thứ tự bắt đầu từ 1
                 echo '<td>' . htmlspecialchars($comment['ten']) . '</td>'; // Tên người dùng
                 echo '<td>' . htmlspecialchars($comment['noi_dung']) . '</td>'; // Nội dung bình luận
                 echo '<td>';
@@ -49,7 +48,7 @@ if ($listcomments) {
                 }
                 echo '</td>'; 
                 echo '<td>' . htmlspecialchars($comment['ngay_binh_luan']) . '</td>'; // Ngày bình luận
-                echo '<td><a class="btn btn-danger" href="#">Xóa</a></td>'; // Hành động
+                echo '<td><a class="btn btn-danger" href="index.php?act=xoa_binhluan&ma_san_pham=' . $comment['ma_san_pham'] . '&id=' . $comment['ma_binh_luan'] . '" onclick="return confirm(\'Bạn có chắc chắn muốn xóa bình luận này?\')">Xóa</a></td>'; // Hành động
                 echo '</tr>';
             }
             ?>
@@ -57,9 +56,9 @@ if ($listcomments) {
     </table>
 <?php
 } else {
-    ?>
+?>
     <table class="table">
-    <thead>
+        <thead>
             <tr>
                 <th>Số Thứ Tự</th>
                 <th>Tên Người Dùng</th>
@@ -71,15 +70,12 @@ if ($listcomments) {
         </thead>
         <tbody>
             <td colspan="6">Không có bình luận</td>
-            
         </tbody>
-        
-
     </table>
-
 <?php
 }
 ?>
+
 
 
                 <!-- nhập content -->

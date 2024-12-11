@@ -2,7 +2,9 @@
 function loadone_binhluan($id)
 {
     $sql = "SELECT 
+    binhluan.ma_binh_luan, 
     sanpham.ten_san_pham,
+    sanpham.ma_san_pham,
     nguoidung.ten,
     binhluan.noi_dung,
     binhluan.danh_gia,
@@ -75,3 +77,10 @@ function add_comment($ma_nguoi_dung, $ma_san_pham, $noi_dung, $danh_gia, $ngay_b
 //     $sql="update danhmucsanpham set ten_danh_muc='".$tendanhmuc."' ,mo_ta='".$mota."'  where ma_danh_muc=".$madanhmuc;
 //     pdo_execute($sql);
 // }
+// Hàm xóa bình luận theo ID
+function delete_binhluan($id)
+{
+    // Câu lệnh SQL để xóa bình luận theo ID
+    $sql = "DELETE FROM binhluan WHERE ma_binh_luan = " . $id;
+    pdo_execute($sql); // Sử dụng hàm pdo_execute để thực thi câu lệnh SQL
+}
